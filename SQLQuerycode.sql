@@ -27,14 +27,14 @@ FROM AdventureWorks2019.HumanResources.EmployeePayHistory A
 		ON A.BusinessEntityID = C.BusinessEntityID
 
 /*Create a query with the following columns:
-“Name” from the Production.Product table, which can be alised as “ProductName”
-“ListPrice” from the Production.Product table
-“Name” from the Production. ProductSubcategory table, which can be alised as “ProductSubcategory”
-“Name” from the Production.ProductCategory table, which can be alised as “ProductCategory”
+â€œNameâ€ from the Production.Product table, which can be alised as â€œProductNameâ€
+â€œListPriceâ€ from the Production.Product table
+â€œNameâ€ from the Production. ProductSubcategory table, which can be alised as â€œProductSubcategoryâ€
+â€œNameâ€ from the Production.ProductCategory table, which can be alised as â€œProductCategoryâ€
 "AvgPriceByCategory " that returns the average ListPrice for the product category in each given row.
 "AvgPriceByCategoryAndSubcategory" that returns the average ListPrice for the product category AND subcategory in each given row.
 "ProductVsCategoryDelta" that returns the result of the following calculation:
-A product's list price, MINUS the average ListPrice for that product’s category.*/
+A product's list price, MINUS the average ListPrice for that productâ€™s category.*/
 
 select 
 ProductName = A.Name ,
@@ -53,8 +53,8 @@ from AdventureWorks2019.Production.Product A
 		ON B.ProductCategoryID = C.ProductCategoryID
 
 /*"Price Rank " that ranks all records in the dataset by ListPrice, in descending order.
-"Category Price Rank" that ranks all products by ListPrice – within each category - in descending order.
-"Top 5 Price In Category" that returns the string “Yes” if a product has one of the top 5 list prices in its product category, and “No” if it does not*/
+"Category Price Rank" that ranks all products by ListPrice â€“ within each category - in descending order.
+"Top 5 Price In Category" that returns the string â€œYesâ€ if a product has one of the top 5 list prices in its product category, and â€œNoâ€ if it does not*/
 
 SELECT 
   ProductName = A.Name,
@@ -76,8 +76,8 @@ FROM AdventureWorks2019.Production.Product A
   JOIN AdventureWorks2019.Production.ProductCategory C
     ON B.ProductCategoryID = C.ProductCategoryID
 
-/*2.14  add a derived column called “Category Price Rank With Rank” that uses the RANK function to rank all products by ListPrice – within each category - in descending order
-eturn a true top 5 products by price, assuming we want to see the top 5 distinct prices AND we want “ties” (by price) to all share the same rank. */
+/*2.14  add a derived column called â€œCategory Price Rank With Rankâ€ that uses the RANK function to rank all products by ListPrice â€“ within each category - in descending order
+eturn a true top 5 products by price, assuming we want to see the top 5 distinct prices AND we want â€œtiesâ€ (by price) to all share the same rank. */
 
 SELECT 
   ProductName = A.Name,
@@ -102,13 +102,13 @@ FROM AdventureWorks2019.Production.Product A
 
 
 /*2.16Create a query with the following columns:
-“PurchaseOrderID” from the Purchasing.PurchaseOrderHeader table
-“OrderDate” from the Purchasing.PurchaseOrderHeader table
-“TotalDue” from the Purchasing.PurchaseOrderHeader tablE
-“Name” from the Purchasing.Vendor table, which can be aliased as “VendorName”
-a derived column called"PrevOrderFromVendorAmt", that returns the “previous” TotalDue value (relative to the current row) within the group of all orders with the same vendor ID. We are defining “previous” based on order date.
- a derived column called"NextOrderByEmployeeVendor", that returns the “next” vendor name (the “name” field from Purchasing.Vendor) within the group of all orders that have the same EmployeeID value in Purchasing.PurchaseOrderHeader.
- Similar to the last exercise, we are defining “next” based on order date.adding a derived column called "Next2OrderByEmployeeVendor" that returns, within the group of all orders that have the same EmployeeID, the vendor name offset TWO orders into the “future” relative to the order in the current row. */
+â€œPurchaseOrderIDâ€ from the Purchasing.PurchaseOrderHeader table
+â€œOrderDateâ€ from the Purchasing.PurchaseOrderHeader table
+â€œTotalDueâ€ from the Purchasing.PurchaseOrderHeader tablE
+â€œNameâ€ from the Purchasing.Vendor table, which can be aliased as â€œVendorNameâ€
+a derived column called"PrevOrderFromVendorAmt", that returns the â€œpreviousâ€ TotalDue value (relative to the current row) within the group of all orders with the same vendor ID. We are defining â€œpreviousâ€ based on order date.
+ a derived column called"NextOrderByEmployeeVendor", that returns the â€œnextâ€ vendor name (the â€œnameâ€ field from Purchasing.Vendor) within the group of all orders that have the same EmployeeID value in Purchasing.PurchaseOrderHeader.
+ Similar to the last exercise, we are defining â€œnextâ€ based on order date.adding a derived column called "Next2OrderByEmployeeVendor" that returns, within the group of all orders that have the same EmployeeID, the vendor name offset TWO orders into the â€œfutureâ€ relative to the order in the current row. */
 
 
 Select
@@ -127,22 +127,6 @@ FROM [AdventureWorks2019].[Purchasing].[PurchaseOrderHeader] A
 
 WHERE YEAR(A.orderdate) >= 2013
 AND TotalDue > 500
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
