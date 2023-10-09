@@ -484,6 +484,90 @@ ON A.BusinessEntityID = B.BusinessEntityID
 SELECT * FROM #PersonContactInfo
 
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*Exercise 1
+
+Update your calendar lookup table with a few holidays of your choice that always fall on the same day of the year - for example, New Year's.
+
+
+Exercise 2
+
+Using your updated calendar table, pull all purchasing orders that were made on a holiday. It's fine to simply select all columns via SELECT *.
+
+
+Exercise 3
+
+Again using your updated calendar table, now pull all purchasing orders that were made on a holiday that also fell on a weekend*/
+
+--Exercise 1
+
+UPDATE AdventureWorks2019.dbo.Calendar
+SET
+HolidayFlag =
+	CASE
+		WHEN DayOfMonthNumber = 1 AND MonthNumber = 1 THEN 1
+		WHEN DayOfMonthNumber = 4 AND MonthNumber = 7 THEN 1
+		WHEN DayOfMonthNumber = 11 AND MonthNumber = 11 THEN 1
+		WHEN DayOfMonthNumber = 25 AND MonthNumber = 12 THEN 1
+		ELSE 0
+	END
+
+
+--Exercise 2
+
+SELECT
+A.*
+
+FROM AdventureWorks2019.Purchasing.PurchaseOrderHeader A
+	JOIN AdventureWorks2019.dbo.Calendar B
+		ON A.OrderDate = B.DateValue
+
+WHERE B.HolidayFlag = 1
+
+--Exercise 3
+
+SELECT
+A.*
+
+FROM AdventureWorks2019.Purchasing.PurchaseOrderHeader A
+	JOIN AdventureWorks2019.dbo.Calendar B
+		ON A.OrderDate = B.DateValue
+
+WHERE B.HolidayFlag = 1
+	AND B.WeekendFlag = 1
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/*Let's say your company pays once per month, on the 15th.
+
+If it's already the 15th of the current month (or later), the previous pay period will run from the 15th of the previous month, to the 14th of the current month.
+
+If on the other hand it's not yet the 15th of the current month, the previous pay period will run from the
+
+15th two months ago to the 14th on the previous month.*/
+DECLARE @Today DATE = CAST(GETDATE() AS DATE)
+
+SELECT @Today
+
+DECLARE @Current14 DATE = DATEFROMPARTS(YEAR(@Today),MONTH(@Today),14)
+
+DECLARE @PayPeriodEnd DATE = 
+	CASE
+		WHEN DAY(@Today) < 15 THEN DATEADD(MONTH,-1,@Current14)
+		ELSE @Current14
+	END
+
+DECLARE @PayPeriodStart DATE = DATEADD(DAY,1,DATEADD(MONTH,-1,@PayPeriodEnd))
+
+
+SELECT @PayPeriodStart
+SELECT @PayPeriodEnd
+
+
+
+
+
+
+
 
 
 
